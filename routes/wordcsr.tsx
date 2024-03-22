@@ -40,10 +40,11 @@ export const handler: Handlers = {
 
 
 const Page = (props: PageProps<Array<RequestData>>) => {
-  //const def = props.data? props.data[0].meanings[0].definitions[0].definition : null;
   const data = props.data? ({
     word: props.data[0].word,
-    definitions: props.data[0].meanings[0].definitions.map((def) => (
+    definitions: props.data[0].meanings.flatMap((meaning) => (
+      meaning.definitions
+    )).map((def) => (
       {
         definition: def.definition,
         example: def.example ? def.example : undefined
